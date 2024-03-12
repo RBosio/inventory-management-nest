@@ -1,14 +1,22 @@
-import { Injectable, NotFoundException } from "@nestjs/common"
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common"
 import { CreateUserDto } from "./dto/create-user.dto"
 import { UpdateUserDto } from "./dto/update-user.dto"
-import { UserRepository } from "src/repositories/user.repository"
 import { User } from "src/entities/user.entity"
+import { UserRepository } from "./user.repository"
 
 @Injectable()
 export class UserService {
   constructor(private userRepository: UserRepository) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    const userFounded = await this.findOneByEmail(createUserDto.email)
+
+    if (userFounded) throw new BadRequestException("email already exists")
+
     const user = this.userRepository.create(createUserDto)
 
     return this.userRepository.save(user)
@@ -25,13 +33,15 @@ export class UserService {
     return user
   }
 
-  async findOneByEmail(email: string) {
+  async findOneByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOneByCondition({
       where: {
         email,
       },
     })
-    if (!user) throw new NotFoundException("user not found")
+    if (!user) return null
+
+    return user
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
