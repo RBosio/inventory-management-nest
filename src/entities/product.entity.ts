@@ -25,5 +25,5 @@ export class Product {
   deleted_at?: Date
 
   @ManyToOne(() => User, (user) => user.products)
-  user: User
+  user?: User
 }
