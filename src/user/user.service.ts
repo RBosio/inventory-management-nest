@@ -42,7 +42,7 @@ export class UserService {
     return this.userRepository.save(userUpdated)
   }
 
-  async remove(id: number): Promise<User> {
+  async delete(id: number): Promise<User> {
     const user = await this.findOne(id)
     await this.userRepository.softDelete(id)
 
