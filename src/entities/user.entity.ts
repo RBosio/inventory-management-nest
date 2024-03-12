@@ -1,4 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import {
+  Column,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm"
 import { Product } from "./product.entity"
 
 @Entity()
@@ -17,6 +23,9 @@ export class User {
 
   @Column()
   password: string
+
+  @DeleteDateColumn()
+  deleted_at?: Date
 
   @OneToMany(() => Product, (products) => products.user)
   products: Product[]
