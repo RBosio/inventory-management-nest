@@ -6,4 +6,5 @@ export const userStub = (): User => ({
   surname: "Doe",
   email: "jdoe@gmail.com",
   password: "123",
+  products: []
 })

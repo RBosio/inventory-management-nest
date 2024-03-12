@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common"
 import { ConfigService } from "@nestjs/config"
 import { TypeOrmModule } from "@nestjs/typeorm"
+import { Product } from "src/entities/product.entity"
 import { User } from "src/entities/user.entity"
 
 @Module({
@@ -10,7 +11,7 @@ import { User } from "src/entities/user.entity"
         type: "mysql",
         url: configService.get("MYSQL_URI"),
         database: configService.get("MYSQL_DATABASE"),
-        entities: [User],
+        entities: [User, Product],
         synchronize: configService.get("MYSQL_SYNC"),
       }),
       inject: [ConfigService],
