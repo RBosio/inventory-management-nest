@@ -3,8 +3,8 @@ import { UserController } from "../user.controller"
 import { UserService } from "../user.service"
 import { userStub } from "./stubs/user.stub"
 import { User } from "src/entities/user.entity"
-import { CreateUserDto } from "../dto/create-user.dto"
 import { UpdateUserDto } from "../dto/update-user.dto"
+import { JwtService } from "@nestjs/jwt"
 
 jest.mock("../user.service")
 
@@ -15,7 +15,13 @@ describe("UserController", () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [UserService],
+      providers: [
+        UserService,
+        {
+          provide: JwtService,
+          useValue: {},
+        },
+      ],
     }).compile()
 
     userController = module.get<UserController>(UserController)

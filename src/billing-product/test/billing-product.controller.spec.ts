@@ -6,6 +6,8 @@ import { BillingProduct } from "src/entities/billing-product.entity"
 import { CreateBillingProductDto } from "../dto/create-billing-product.dto"
 import { billingStub } from "src/billing/test/stubs/billing.stub"
 import { productStub } from "src/product/test/stubs/product.stub"
+import { JwtService } from "@nestjs/jwt"
+import { UserService } from "src/user/user.service"
 
 jest.mock("../billing-product.service")
 
@@ -16,7 +18,17 @@ describe("BillingProductController", () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [BillingProductController],
-      providers: [BillingProductService],
+      providers: [
+        BillingProductService,
+        {
+          provide: JwtService,
+          useValue: {},
+        },
+        {
+          provide: UserService,
+          useValue: {},
+        },
+      ],
     }).compile()
 
     billingProductController = module.get<BillingProductController>(
