@@ -3,9 +3,11 @@ import {
   DeleteDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm"
 import { User } from "./user.entity"
+import { BillingProduct } from "./billing-product.entity"
 
 @Entity()
 export class Billing {
@@ -17,6 +19,9 @@ export class Billing {
 
   @DeleteDateColumn()
   deleted_at?: Date
+
+  @OneToMany(() => BillingProduct, (bp) => bp.product)
+  bp: BillingProduct[]
 
   @ManyToOne(() => User, (user) => user.billingsUser)
   user?: User

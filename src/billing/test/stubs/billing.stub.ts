@@ -7,4 +7,5 @@ export const billingStub = (): Billing => ({
   datetime: new Date("2024-03-12T20:32:00"),
   user: userStub(),
   customer: customerStub(),
+  bp: [],
 })
