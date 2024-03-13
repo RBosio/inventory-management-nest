@@ -1,5 +1,6 @@
 import {
   DeepPartial,
+  FindManyOptions,
   FindOneOptions,
   FindOptionsWhere,
   Repository,
@@ -28,8 +29,8 @@ export abstract class BaseAbstractRepository<T extends HasId>
     return this.entity.save(data)
   }
 
-  async findAll(): Promise<T[]> {
-    return this.entity.find()
+  async findAll(options?: FindManyOptions<T>): Promise<T[]> {
+    return this.entity.find(options)
   }
 
   async findOneById(id: any): Promise<T> {
@@ -48,7 +49,7 @@ export abstract class BaseAbstractRepository<T extends HasId>
     const options: FindOptionsWhere<T> = {
       id,
     }
-    
+
     return this.entity.softDelete(options)
   }
 }
