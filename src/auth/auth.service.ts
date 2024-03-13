@@ -4,6 +4,7 @@ import { CreateUserDto } from "src/user/dto/create-user.dto"
 import { UserService } from "src/user/user.service"
 import { JwtService } from "@nestjs/jwt"
 import { LoginUserDto } from "./dto/login-user.dto"
+import { compare } from "bcryptjs"
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,7 @@ export class AuthService {
       loginUserDto.email,
     )
 
-    if (userFounded.password !== loginUserDto.password)
+    if (!(await compare(loginUserDto.password, userFounded.password)))
       throw new BadRequestException("email or password wrong")
 
     const payload = { sub: userFounded.id }

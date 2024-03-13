@@ -7,6 +7,7 @@ import { CreateUserDto } from "./dto/create-user.dto"
 import { UpdateUserDto } from "./dto/update-user.dto"
 import { User } from "src/entities/user.entity"
 import { UserRepository } from "./user.repository"
+import { hash } from "bcryptjs"
 
 @Injectable()
 export class UserService {
@@ -18,6 +19,7 @@ export class UserService {
     if (userFounded) throw new BadRequestException("email already exists")
 
     const user = this.userRepository.create(createUserDto)
+    user.password = await hash(user.password, 10)
 
     return this.userRepository.save(user)
   }
