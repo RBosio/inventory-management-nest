@@ -7,10 +7,13 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from "@nestjs/common"
 import { BillingProductService } from "./billing-product.service"
 import { CreateBillingProductDto } from "./dto/create-billing-product.dto"
+import { AuthGuard } from "src/auth/auth.guard"
 
+@UseGuards(AuthGuard)
 @Controller("billingProduct")
 export class BillingProductController {
   constructor(private readonly billingProductService: BillingProductService) {}
