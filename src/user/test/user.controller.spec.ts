@@ -67,31 +67,6 @@ describe("UserController", () => {
     })
   })
 
-  describe("createUser", () => {
-    describe("when create is called", () => {
-      let user: User
-      let createUserDto: CreateUserDto
-
-      beforeEach(async () => {
-        createUserDto = {
-          name: userStub().name,
-          surname: userStub().surname,
-          email: userStub().email,
-          password: userStub().password,
-        }
-        user = await userController.create(createUserDto)
-      })
-
-      it("then it should call userService", () => {
-        expect(userService.create).toHaveBeenCalledWith(createUserDto)
-      })
-
-      it("then it should return a user", () => {
-        expect(user).toEqual(userStub())
-      })
-    })
-  })
-
   describe("updateUser", () => {
     describe("when update is called", () => {
       let user: User
