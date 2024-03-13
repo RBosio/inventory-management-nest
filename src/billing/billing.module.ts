@@ -10,5 +10,6 @@ import { UserModule } from "src/user/user.module"
   imports: [TypeOrmModule.forFeature([Billing]), UserModule],
   controllers: [BillingController],
   providers: [BillingService, BillingRepository],
+  exports: [BillingService]
 })
 export class BillingModule {}

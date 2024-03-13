@@ -5,4 +5,5 @@ export const productStub = (): Product => ({
   name: "Water",
   description: "a simple description",
   quantity: 20,
+  bp: [],
 })
