@@ -4,6 +4,7 @@ import { ConfigModule } from "@nestjs/config"
 import { UserModule } from "./user/user.module"
 import { ProductModule } from "./product/product.module"
 import { BillingModule } from "./billing/billing.module"
+import { BillingProductModule } from "./billing-product/billing-product.module"
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { BillingModule } from "./billing/billing.module"
     UserModule,
     ProductModule,
     BillingModule,
+    BillingProductModule,
   ],
   controllers: [],
   providers: [],
