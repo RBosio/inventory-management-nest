@@ -171,7 +171,7 @@ describe("ProductService", () => {
       const notFoundProductId = -1
       let updateProductDto: UpdateProductDto
 
-      it("then it should throw BadRequestException", async () => {
+      it("then it should throw NotFoundException", async () => {
         updateProductDto = {
           name: "Milk",
         }
@@ -211,7 +211,7 @@ describe("ProductService", () => {
 
     describe("when delete is called and product no exist", () => {
       const notFoundProductId = -1
-      it("then it should throw BadRequestException", async () => {
+      it("then it should throw NotFoundException", async () => {
         jest
           .spyOn(productService, "findOne")
           .mockRejectedValueOnce(new NotFoundException())

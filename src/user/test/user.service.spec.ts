@@ -1,5 +1,4 @@
 import { Test, TestingModule } from "@nestjs/testing"
-import { UserController } from "../user.controller"
 import { UserService } from "../user.service"
 import { userStub } from "./stubs/user.stub"
 import { User } from "src/entities/user.entity"
@@ -111,7 +110,7 @@ describe("UserService", () => {
         user = await userService.findOneByEmail(notFoundUserEmail)
       })
 
-      it("then it should throw NotFoundException", async () => {
+      it("then it should return null", async () => {
         expect(user).toEqual(null)
       })
     })
@@ -194,7 +193,7 @@ describe("UserService", () => {
       const notFoundUserId = -1
       let updateUserDto: UpdateUserDto
 
-      it("then it should throw BadRequestException", async () => {
+      it("then it should throw NotFoundException", async () => {
         updateUserDto = {
           name: "Fido",
           password: "456",
@@ -231,7 +230,7 @@ describe("UserService", () => {
 
     describe("when delete is called and user no exist", () => {
       const notFoundUserId = -1
-      it("then it should throw BadRequestException", async () => {
+      it("then it should throw NotFoundException", async () => {
         jest
           .spyOn(userService, "findOne")
           .mockRejectedValueOnce(new NotFoundException())
