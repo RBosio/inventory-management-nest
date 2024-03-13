@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm"
 import { Product } from "./product.entity"
+import { Billing } from "./billing.entity"
 
 @Entity()
 export class User {
@@ -29,4 +30,10 @@ export class User {
 
   @OneToMany(() => Product, (products) => products.user)
   products: Product[]
+
+  @OneToMany(() => Billing, (billingsUser) => billingsUser.user)
+  billingsUser: Billing[]
+
+  @OneToMany(() => Billing, (billingsCustomer) => billingsCustomer.customer)
+  billingsCustomer: Billing[]
 }
