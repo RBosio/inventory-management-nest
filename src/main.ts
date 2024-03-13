@@ -10,6 +10,7 @@ async function bootstrap() {
   const PORT = configService.get("PORT") || 3000
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle("Inventory management")
     .setVersion("1.0")
     .build()

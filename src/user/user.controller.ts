@@ -1,43 +1,104 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
   Param,
   Delete,
   ParseIntPipe,
   UseGuards,
+  HttpStatus,
 } from "@nestjs/common"
 import { UserService } from "./user.service"
 import { UpdateUserDto } from "./dto/update-user.dto"
 import { AuthGuard } from "src/auth/auth.guard"
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from "@nestjs/swagger"
 
 @UseGuards(AuthGuard)
+@ApiBearerAuth()
+@ApiTags("user")
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
+  @ApiOperation({ summary: "find users" })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "get all users",
+  })
   findAll() {
     return this.userService.findAll()
   }
 
-  @Get(":id")
-  findOne(@Param("id", ParseIntPipe) id: number) {
-    return this.userService.findOne(id)
+  @Get(":userId")
+  @ApiOperation({ summary: "find user" })
+  @ApiParam({
+    name: "userId",
+    type: "number",
+    example: 1,
+    required: true,
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "get one user",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "user not found",
+  })
+  findOne(@Param("userId", ParseIntPipe) userId: number) {
+    return this.userService.findOne(userId)
   }
 
-  @Patch(":id")
+  @Patch(":userId")
+  @ApiOperation({ summary: "update user" })
+  @ApiParam({
+    name: "userId",
+    type: "number",
+    example: 1,
+    required: true,
+  })
+  @ApiBody({ type: UpdateUserDto })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "user updated",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "user not found",
+  })
   update(
-    @Param("id", ParseIntPipe) id: number,
+    @Param("userId", ParseIntPipe) userId: number,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.userService.update(id, updateUserDto)
+    return this.userService.update(userId, updateUserDto)
   }
 
-  @Delete(":id")
-  delete(@Param("id", ParseIntPipe) id: number) {
-    return this.userService.delete(id)
+  @Delete(":userId")
+  @ApiOperation({ summary: "delete user" })
+  @ApiParam({
+    name: "userId",
+    type: "number",
+    example: 1,
+    required: true,
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: "user deleted",
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "user not found",
+  })
+  delete(@Param("userId", ParseIntPipe) userId: number) {
+    return this.userService.delete(userId)
   }
 }
