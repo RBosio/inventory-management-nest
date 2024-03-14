@@ -26,6 +26,10 @@ import {
 @UseGuards(AuthGuard)
 @ApiBearerAuth()
 @ApiTags("product")
+@ApiResponse({
+  status: HttpStatus.UNAUTHORIZED,
+  description: "unauthorized",
+})
 @Controller("product")
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
