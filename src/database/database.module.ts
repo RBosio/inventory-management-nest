@@ -10,11 +10,18 @@ import { User } from "src/entities/user.entity"
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
-        type: "mysql",
-        url: configService.get("MYSQL_URI"),
-        database: configService.get("MYSQL_DATABASE"),
+        type: "postgres",
+        url: configService.get("POSTGRES_URI"),
+        database: configService.get("POSTGRES_DATABASE"),
         entities: [User, Product, Billing, BillingProduct],
-        synchronize: configService.get("MYSQL_SYNC"),
+        synchronize: configService.get("POSTGRES_SYNC"),
+        ssl: configService.get("POSTGRES_SSL") === "true",
+        extra:
+          configService.get("POSTGRES_SSL") === "true"
+            ? {
+                ssl: { rejectUnauthorized: false },
+              }
+            : null,
       }),
       inject: [ConfigService],
     }),

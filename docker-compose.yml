@@ -1,9 +1,9 @@
 version: "3.8"
 
 services:
-  mysql:
-    image: mysql:8.3
+  pg:
+    image: postgres:16
     ports:
-      - ${MYSQL_PORT}:${MYSQL_PORT}
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     env_file:
       - .env
