@@ -8,6 +8,7 @@ export class CreateUserDto {
     required: true,
   })
   name: string
+
   @ApiProperty({
     name: "surname",
     example: "Wayne",
@@ -15,6 +16,7 @@ export class CreateUserDto {
     required: true,
   })
   surname: string
+
   @ApiProperty({
     name: "email",
     example: "bwayne@gmail.com",
@@ -22,6 +24,7 @@ export class CreateUserDto {
     required: true,
   })
   email: string
+
   @ApiProperty({
     name: "password",
     example: "123456",

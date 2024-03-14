@@ -8,6 +8,7 @@ export class UpdateUserDto {
     required: false,
   })
   name?: string
+
   @ApiProperty({
     name: "surname",
     example: "Doe",
@@ -15,6 +16,7 @@ export class UpdateUserDto {
     required: false,
   })
   surname?: string
+
   @ApiProperty({
     name: "password",
     example: "123456",
